@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulação de SQL Injection</title>
+</head>
+<body>
+    <h2>Teste de Injeção de SQL</h2>
+    <form action="/login" method="GET">
+        <label>Usuário:</label>
+        <input type="text" name="username" required>
+        <br>
+        <label>Senha:</label>
+        <input type="text" name="password" required>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+    <p>Experimente injeção de SQL, por exemplo:</p>
+    <code>username: admin' --<br>password: qualquer coisa</code>
+</body>
+</html>

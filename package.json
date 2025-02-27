@@ -1,0 +1,24 @@
+{
+  "name": "sql_injection_edu",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasgarofolo/sql_injection_edu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasgarofolo/sql_injection_edu/issues"
+  },
+  "homepage": "https://github.com/lucasgarofolo/sql_injection_edu#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2",
+    "pm2": "^5.4.3",
+    "sqlite3": "^5.1.7"
+  }
+}
