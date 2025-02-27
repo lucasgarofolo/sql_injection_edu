@@ -5,11 +5,11 @@ const path = require("path");
 const app = express();
 const db = new sqlite3.Database("./database.db");
 
-// Criação da tabela e inserção de dados fictícios
+// Criação da tabela e inserção de dados fictícios (se não existirem)
 db.serialize(() => {
-  db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)");
-  db.run("INSERT INTO users (username, password) VALUES ('admin', 'admin123')");
-  db.run("INSERT INTO users (username, password) VALUES ('user1', 'password1')");
+  db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT UNIQUE, password TEXT)");
+  db.run("INSERT OR IGNORE INTO users (username, password) VALUES ('admin', 'admin123')");
+  db.run("INSERT OR IGNORE INTO users (username, password) VALUES ('user1', 'password1')");
 });
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -18,11 +18,10 @@ app.get("/login", (req, res) => {
   let username = req.query.username || "";
   let password = req.query.password || "";
 
-  // 🚨 VULNERÁVEL A INJEÇÃO DE SQL 🚨
-  let query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
-  console.log("Query executada:", query);
+  // 🚀 CONSULTA PARAMETRIZADA - Proteção contra SQL Injection
+  let query = "SELECT * FROM users WHERE username = ? AND password = ?";
 
-  db.all(query, [], (err, rows) => {
+  db.all(query, [username, password], (err, rows) => {
     if (err) {
       res.send("Erro no banco de dados.");
       return;
